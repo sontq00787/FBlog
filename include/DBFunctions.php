@@ -19,30 +19,33 @@ class DBFunctions {
 	/**
 	 * Creating new user
 	 *
-	 * @param String $name User name
-	 * @param String $email User login email id
-	 * @param String $password User login password
+	 * @param String $name
+	 *        	User name
+	 * @param String $email
+	 *        	User login email id
+	 * @param String $password
+	 *        	User login password
 	 */
 	public function createUser($name, $email, $password) {
 		require_once 'PassHash.php';
 		$response = array ();
-	
+		
 		// First check if user already existed in db
 		if (! $this->isUserExists ( $email )) {
 			// Generating password hash
 			$password_hash = PassHash::hash ( $password );
-				
+			
 			// Generating API key
 			$activation_key = $this->generateActivationKey ();
-				
+			
 			// insert query
 			$stmt = $this->conn->prepare ( "INSERT INTO users(user_name, user_email, user_pass, user_status, display_name, user_activation_key, user_group) values(?, ?, ?, 1, ?, ?, 1)" );
 			$stmt->bind_param ( "sssss", $name, $email, $password_hash, $name, $activation_key );
-				
+			
 			$result = $stmt->execute ();
-				
+			
 			$stmt->close ();
-				
+			
 			// Check for successful insertion
 			if ($result) {
 				// User successfully inserted
@@ -55,8 +58,76 @@ class DBFunctions {
 			// User with same email already existed in the db
 			return EMAIL_ALREADY_EXISTED;
 		}
-	
+		
 		return $response;
+	}
+	
+	/**
+	 * Checking user login
+	 *
+	 * @param String $email
+	 *        	User login email id
+	 * @param String $password
+	 *        	User login password
+	 * @return boolean User login status success/fail
+	 */
+	public function checkLogin($email, $password) {
+		require_once 'PassHash.php';
+		// fetching user by user_name or email
+		$stmt = $this->conn->prepare ( "SELECT user_pass FROM users WHERE user_name = ? OR user_email = ?" );
+		$stmt->bind_param ( "ss", $email, $email );
+		
+		$stmt->execute ();
+		
+		$stmt->bind_result ( $password_hash );
+		
+		$stmt->store_result ();
+		
+		if ($stmt->num_rows > 0) {
+			// Found user with the email
+			// Now verify the password
+			
+			$stmt->fetch ();
+			
+			$stmt->close ();
+			
+			if (PassHash::check_password ( $password_hash, $password )) {
+				// User password is correct
+				return TRUE;
+			} else {
+				// user password is incorrect
+				return FALSE;
+			}
+		} else {
+			$stmt->close ();
+			
+			// user not existed with the email
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * change password function
+	 * 
+	 * @param String $user        	
+	 * @param String $old_pass        	
+	 * @param String $new_pass        	
+	 * @return boolean
+	 */
+	public function changePassword($user, $old_pass, $new_pass) {
+		if ($this->checkLogin ( $user, $old_pass )) {
+			// Generating password hash
+			$password_hash = PassHash::hash ( $new_pass );
+			
+			$stmt = $this->conn->prepare ( "UPDATE users set user_pass = ? WHERE user_name = ?" );
+			$stmt->bind_param ( "ss", $password_hash, $user );
+			$stmt->execute ();
+			$num_affected_rows = $stmt->affected_rows;
+			$stmt->close ();
+			if ($num_affected_rows > 0)
+				return TRUE;
+		}
+		return FALSE;
 	}
 	
 	/**
