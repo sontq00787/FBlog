@@ -6,7 +6,6 @@ Các chức năng chính:
 	Group: thêm, sửa, xoá. (đang làm)
 	Category: thêm, sửa, xoá. (đang làm)
 	Post: thêm, sửa, xoá. (đang làm)
-=====
 FBlog Beta v0.2.0
 =====
 Release Date: to be defined
