@@ -1,7 +1,7 @@
 FBlog Beta v0.1.0
 =====
 Release date: 2014/12/10
-Các chức năng chính:\n
+Các chức năng chính:
 	User: thêm, sửa, xoá. (đang làm)
 	Group: thêm, sửa, xoá. (đang làm)
 	Category: thêm, sửa, xoá. (đang làm)
