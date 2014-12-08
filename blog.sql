@@ -4,7 +4,7 @@ USE fblog;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(250) DEFAULT NULL,
+  `user_name` varchar(250) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `user_pass` text NOT NULL,
   `user_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_group` int(1),
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_email` (`user_email`),
+  UNIQUE KEY `user_name` (`user_name`),
   KEY `user_group`(`user_group`)
 );
 
