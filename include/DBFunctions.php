@@ -12,7 +12,7 @@ class DBFunctions {
 		require_once dirname ( __FILE__ ) . '/DbConnect.php';
 		// opening db connection
 		$db = new DbConnect ();
-		$this->conn = $db->connect ();
+		$this->conn = $db->connect();
 	}
 	/* ------------- `users` table method ------------------ */
 	
@@ -170,6 +170,76 @@ class DBFunctions {
 	 */
 	private function generateActivationKey() {
 		return md5 ( uniqid ( rand (), true ) );
+	}
+
+	/**
+	*
+	*
+	**/
+	public function createCategory($name, $description, $parent_group){
+		if ($this->isCategoryExists($name)) {
+			# code...
+			$stmt = $this->conn->prepare ("insert into categories(name, description, parent_group) values(?,?,?)");
+			$stmt->bind_param("sss", $name, $description, $parent_group);
+			$result = $stmt->execute();
+			$stmt->close ();
+			return $result;
+		} else {
+			echo "Category is existed";
+		}
+	}
+
+	/**
+	* Check existed category
+	* @param $name
+	* @return boolean
+	**/
+	public function isCategoryExists($name){
+		$stmt = $this->conn->prepare ("select count(*) as count from categories where name = ?");
+		$stmt->bind_param("s", $name);
+		$stmt->execute();
+		$stmt->store_result();
+		$num_rows = $stmt->num_rows;
+		$stmt->close ();
+		return $num_rows > 0;
+	}
+
+	/**
+	*
+	*
+	**/
+	public function listCategories(){
+		$stmt = $this->conn->query("select id, name from categories");
+		$results = $stmt->fetch_all();
+		$stmt->close ();
+		return $results;
+	}
+
+	public function tableCategories(){
+		$stmt = $this->conn->query("select * from categories");
+		$results = $stmt->fetch_all();
+		$stmt->close ();
+		return $results;
+	}
+
+	public function deleteCategory($id){
+		$stmt = $this->conn->prepare("delete from categories where id=?");
+		$stmt->bind_param("s", $id);
+		$stmt->execute();
+		$stmt->store_result();
+		$num_rows = $stmt->num_rows;
+		$stmt->close ();
+		return $num_rows > 0;
+	}
+
+	public function editCategory($id, $name, $description, $parent_group) {
+		$stmt = $this->conn->prepare("update categories set name = ?, description = ?, parent_group = ? where id=?");
+		$stmt->bind_param("ssss", $name, $description, $parent_group, $id);
+		$stmt->execute();
+		$stmt->store_result();
+		$num_rows = $stmt->num_rows;
+		$stmt->close ();
+		return $num_rows > 0;
 	}
 }
 ?>
