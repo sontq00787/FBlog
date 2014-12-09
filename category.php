@@ -13,10 +13,14 @@
 </head>
 <body>
 	<?php
-		if(isset($_SESSION['message'])){ 
+		if(isset($_SESSION['message'])){
+			var_dump($_SESSION['message']);
+			die();
 			echo "string";
 			// echo $_SESSION['message'];
 			// unset($_SESSION['message']);
+		} else {
+			echo "new";
 		}
 	?>
 	<form action="./controllers/insertCategory.php" method="post">
