@@ -225,21 +225,17 @@ class DBFunctions {
 	public function deleteCategory($id){
 		$stmt = $this->conn->prepare("delete from categories where id=?");
 		$stmt->bind_param("s", $id);
-		$stmt->execute();
-		$stmt->store_result();
-		$num_rows = $stmt->num_rows;
+		$results = $stmt->execute();
 		$stmt->close ();
-		return $num_rows > 0;
+		return $results;
 	}
 
 	public function editCategory($id, $name, $description, $parent_group) {
 		$stmt = $this->conn->prepare("update categories set name = ?, description = ?, parent_group = ? where id=?");
 		$stmt->bind_param("ssss", $name, $description, $parent_group, $id);
-		$stmt->execute();
-		$stmt->store_result();
-		$num_rows = $stmt->num_rows;
+		$result = $stmt->execute();
 		$stmt->close ();
-		return $num_rows > 0;
+		return $result;
 	}
 }
 ?>
