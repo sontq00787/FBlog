@@ -21,7 +21,7 @@ $(document).ready(function () {
 	$('#but_login').click(function(e){				
 		  if(document.formLogin.username.value == "" || document.formLogin.password.value == "")
 		  {
-			  showError("Please Input Username / Password");
+			  showError("Nhập username / password chưa mà đòi bấm =]]");
 			  $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
 			  $('.inner').trigger('startRumble');
 			  setTimeout('$(".inner").trigger("stopRumble")',500);
@@ -29,12 +29,28 @@ $(document).ready(function () {
 			  return false;
 		  }		
 		 hideTop();
-		 loading('Checking',1);		
-		 setTimeout( "unloading()", 2000 );
-		 setTimeout( "Login()", 2500 );
-	});	
-
-		
+		 loading('Checking',1);	
+		//do login post
+		  var username = $("#username_id").val();
+		  var password = $("#password").val();
+	      var dataString = 'action=login&username='+ username +'&password='+password;
+	      $.ajax({
+	      	type: "POST",
+	      	url: "ajax.php",
+	      	data: dataString,
+	      	cache: true,
+	      	success: function(result){
+	      		setTimeout( "unloading()", 500 );
+	          	if(result){
+	          		Login();
+	      		}else{
+	      			setTimeout("showError(\"Thông tin đăng nhập không đúng\")",700);
+	      		}
+	      	}  
+	      	});
+//		 setTimeout( "unloading()", 2000 );
+//		 setTimeout( "Login()", 2500 );
+	});		
 																 
 function Login(){
 	
@@ -51,7 +67,6 @@ function Login(){
 }
 
 
-	
 $('#alertMessage').click(function(){
 	hideTop();
 });
@@ -74,7 +89,7 @@ function loading(name,overlay) {
 				$('#overlay').css('opacity',0.1).fadeIn(function(){  $('#preloader').fadeIn();	});
 				return  false;
 		 }
-	  $('#preloader').fadeIn();	  
+	  $('#preloader').fadeIn();	
  }
  function unloading() {  
 		$('#preloader').fadeOut('fast',function(){ $('#overlay').fadeOut(); });

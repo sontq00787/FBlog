@@ -63,20 +63,20 @@
     <script type="text/javascript" src="styles/ziceadmin/components/flot/flot.pie.min.js"></script>
     <script type="text/javascript" src="styles/ziceadmin/components/flot/flot.resize.min.js"></script>
     <script type="text/javascript" src="styles/ziceadmin/components/flot/graphtable.js"></script>
-    <script type="text/javascript" src="components/uploadify/swfobject.js"></script>
-    <script type="text/javascript" src="components/uploadify/uploadify.js"></script>        
-    <script type="text/javascript" src="components/checkboxes/customInput.jquery.js"></script>
-    <script type="text/javascript" src="components/effect/jquery-jrumble.js"></script>
-    <script type="text/javascript" src="components/filestyle/jquery.filestyle.js" ></script>
-    <script type="text/javascript" src="components/placeholder/jquery.placeholder.js" ></script>
-	<script type="text/javascript" src="components/Jcrop/jquery.Jcrop.js" ></script>
-    <script type="text/javascript" src="components/imgTransform/jquery.transform.js" ></script>
-    <script type="text/javascript" src="components/webcam/webcam.js" ></script>
-	<script type="text/javascript" src="components/rating_star/rating_star.js"></script>
-	<script type="text/javascript" src="components/dualListBox/dualListBox.js"  ></script>
-	<script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/zice.custom.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/uploadify/uploadify.js"></script>        
+    <script type="text/javascript" src="styles/ziceadmin/components/checkboxes/customInput.jquery.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/effect/jquery-jrumble.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/filestyle/jquery.filestyle.js" ></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/placeholder/jquery.placeholder.js" ></script>
+	<script type="text/javascript" src="styles/ziceadmin/components/Jcrop/jquery.Jcrop.js" ></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/imgTransform/jquery.transform.js" ></script>
+    <script type="text/javascript" src="styles/ziceadmin/components/webcam/webcam.js" ></script>
+	<script type="text/javascript" src="styles/ziceadmin/components/rating_star/rating_star.js"></script>
+	<script type="text/javascript" src="styles/ziceadmin/components/dualListBox/dualListBox.js"  ></script>
+	<script type="text/javascript" src="styles/ziceadmin/components/smartWizard/jquery.smartWizard.min.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="styles/ziceadmin/js/zice.custom.js"></script>
 </head>
 <body class="dashborad">
 	<?php
@@ -149,10 +149,10 @@
     	<div class="topcolumn">
 			<div class="logo"></div>
         <ul  id="shortcut">
-            <li> <a href="#" title="Back To home"> <img src="images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
-            <li> <a href="#" title="Website Graph"> <img src="images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
-            <li> <a href="#" title="Setting" > <img src="images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
-            <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
+            <li> <a href="#" title="Back To home"> <img src="styles/ziceadmin/images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
+            <li> <a href="#" title="Website Graph"> <img src="styles/ziceadmin/images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
+            <li> <a href="#" title="Setting" > <img src="styles/ziceadmin/images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
+            <li> <a href="#" title="Messages"> <img src="styles/ziceadmin/images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
         </ul>
 			</div>
       <div class="clear"></div>
