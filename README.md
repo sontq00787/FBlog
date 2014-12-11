@@ -9,7 +9,14 @@ Các chức năng chính:
 	- Group: thêm, sửa, xoá. (đang làm)
 	- Category: thêm, sửa, xoá. (đang làm)
 	- Post: thêm, sửa, xoá. (đang làm)
-	
+
+FBlog Beta v0.1.1
+=====
+
+Release date: to be defined
+
+Features : implement template for v0.1.0 features
+
 FBlog Beta v0.2.0
 =====
 
