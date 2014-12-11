@@ -131,6 +131,17 @@ class DBFunctions {
 	}
 	
 	/**
+	 * Fetching all users
+	 */
+	public function getAllUsers() {
+		$stmt = $this->conn->prepare ( "SELECT id,user_name,user_email,user_registered,user_status,display_name,user_group FROM users" );
+		$stmt->execute ();
+		$users = $stmt->get_result ();
+		$stmt->close ();
+		return $users;
+	}
+	
+	/**
 	 * Checking for duplicate user by email address
 	 *
 	 * @param String $email

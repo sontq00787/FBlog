@@ -63,7 +63,7 @@ function Login(){
 				});							  
 			 })	
      })	
-			setTimeout( "window.location.href='dashboard.html'", 3000 );
+			setTimeout( "window.location.href='dashboard.php'", 2000 );
 }
 
 

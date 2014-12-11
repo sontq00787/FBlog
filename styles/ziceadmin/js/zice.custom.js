@@ -291,11 +291,29 @@ $(function() {
 
 	// logout  
 	$('.logout').live('click',function() { 
+
 		  var str="Logout"; 
 		  var overlay="1"; 
 		  loading(str,overlay);
-		  setTimeout("unloading()",1500);
-		  setTimeout( "window.location.href='index.html'", 2000 );
+		  
+		  //do logout. modified by SonTQ
+		  var dataString = 'action=logout';
+	      $.ajax({
+	      	type: "POST",
+	      	url: "ajax.php",
+	      	data: dataString,
+	      	cache: true,
+	      	success: function(result){
+	      		setTimeout( "unloading()", 1000 );
+	      		if(result){
+	      			setTimeout( "window.location.href='index.php'", 700 );
+	      		}
+	      		else
+	      			showError("Có lỗi khi đăng xuất, thử lại xem.", 2000);
+	      	}  
+	      	});
+//		  setTimeout("unloading()",1500);
+//		  setTimeout( "window.location.href='index.php'", 2000 );
 	  });
 		
 	// wizard 
@@ -694,12 +712,12 @@ $(function() {
 	$('div.logout').hover(function(){
 		  var name=$(this).find('img').attr('alt');
 		  $(this).find('img').animate({ opacity: 0.4 }, 200, function(){
-			    $(this).attr('src','images/'+name+'.png').animate({ opacity: 1 }, 500);									 
+			    $(this).attr('src','../styles/ziceadmin/images/icon/color_18/'+name+'.png').animate({ opacity: 1 }, 500);									 
 		 });
 	},function(){
 		  var name=$(this).find('img').attr('name');
 		  $(this).find('img').animate({ opacity: 0.5 }, 200, function(){
-			    $(this).attr('src','images/'+name+'.png').animate({ opacity: 1 }, 500);									 
+			    $(this).attr('src','../styles/ziceadmin/images/'+name+'.png').animate({ opacity: 1 }, 500);									 
 		 });
 	 })
 	// icon  setting 
