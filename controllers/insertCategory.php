@@ -1,5 +1,5 @@
 <?php
-	if(isset($_GET['add'])){
+	if(isset($_POST['add'])){
 		$category_name = $_POST['category_name'];
 		$description = $_POST['description'];
 		$parent_group = $_POST['parent_group'];
@@ -26,7 +26,7 @@
 			header('Location: ../category.php');
 			exit();
 		}
-	} elseif (isset($_GET['edit'])) {
+	} elseif (isset($_POST['edit'])) {
 		$id = $_POST['id'];
 		$category_name = $_POST['category_name'];
 		$description = $_POST['description'];

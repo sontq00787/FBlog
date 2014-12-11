@@ -78,11 +78,6 @@
 	<script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/zice.custom.js"></script>
-	<style type="text/css">
-		.table-row{
-			border: 1px solid #000;
-		}
-	</style>
 </head>
 <body class="dashborad">
 	<?php
@@ -151,65 +146,85 @@
         </ul>
     </div>
     <div id="content">
-        <div class="inner">
-        	<div class="topcolumn">
-				<div class="logo"></div>
-                    <ul  id="shortcut">
-                        <li> <a href="#" title="Back To home"> <img src="images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
-                        <li> <a href="#" title="Website Graph"> <img src="images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
-                        <li> <a href="#" title="Setting" > <img src="images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
-                        <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
-                    </ul>
+      <div class="inner">
+    	<div class="topcolumn">
+			<div class="logo"></div>
+        <ul  id="shortcut">
+            <li> <a href="#" title="Back To home"> <img src="images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
+            <li> <a href="#" title="Website Graph"> <img src="images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
+            <li> <a href="#" title="Setting" > <img src="images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
+            <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
+        </ul>
 			</div>
-		</div>
+      <div class="clear"></div>
+  		<div class="onecolumn">
+  				<form action="./controllers/insertCategory.php" method="post">
+            <div class="section">
+  					<?php
+  						if (isset($_GET['action'])) {
+  							echo '<input name="id" type="hidden" value="'.$_GET['id'].'" />';
+  							echo '<div><span class="etip"><input id="menu2" class=" medium" type="text" name="category_name" placeholder="Category Name" value="'.$_GET['name'].'" required/></span></div><br/>';
+  							echo '<div><span class="etip"><input id="menu2" class=" medium" type="text" name="description" placeholder="Description" value="'.$_GET['description'].'" required/></span></div><br/>';
+  							echo '<div><span class="etip"><select id="menu2" class=" medium" name="parent_group" value="'.$_GET['parent_group'].'">';
+  							echo "<option value=''>Select...</option>";
+  							require_once './include/DBFunctions.php';
+  							$db = new DBFunctions();
+  							$data = $db->listCategories();
+  							if($data != ""){
+  								foreach ($data as $item) {
+  									$parent_group = $_GET['parent_group'];
+  									if($item[0] == $parent_group){
+  										echo "<option value=".$item[0]." selected>".$item[1]."</option>";
+  									} else {
+  										echo "<option value=".$item[0].">".$item[1]."</option>";
+  									}
+  								}
+  							}
+  							echo '</select></span></div><br/>';
+  							echo '<div><span class="etip"><input class="btn-submit" name="add" type="submit" value="Add" disabled/></span></div>';
+  							echo '<div><span class="etip"><input class="btn-submit" name="edit" type="submit" value="Edit"/></span></div>';
+  						} else {
+  					?>
+  						<div><span class="etip"><input id="menu2" class=" medium" type="text" original-title="Category name" name="category_name" placeholder="Category Name" required/></span></div><br/>
+  						<div><span class="etip"><input id="menu2" class=" medium" type="text" original-title="Description" name="description" placeholder="Description" required/></span></div><br/>
+  						<div><span class="etip"><select id="menu2" class=" medium" name="parent_group">
+  							<?php
+  								require_once './include/DBFunctions.php';
+  								$db = new DBFunctions();
+  								$data = $db->listCategories();
+  								echo "<option value=''>Select...</option>";
+  								if($data != ""){
+  									foreach ($data as $item) {
+  										echo "<option value=".$item[0].">".$item[1]."</option>";
+  									}
+  								}
+  							?>
+  						</select></span></div><br/>
+              <div>
+                <ul class="uibutton-group">
+                  <li>
+                    <span class="setip">
+                      <input class="uibutton icon add normal" name="add" type="submit" original-title="Add" value="Add"/>
+                    </span>
+                  </li>
+                  <li>
+                    <span class="setip">
+                      <input class="uibutton icon edit normal" name="edit" type="submit" value="Edit" original-title="Edit" disabled/>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+  					<?php
+  						}
+  					?>
+          </div>
+  				</form>
+  			</div>
+      </div>
+      <video width="auto" controls>
+        <source src="./video/The.Victorias.Secret.Fashion.Show.2014.HDTV.x264-BATV.mp4" type="video/mp4">
+      </video>
 	</div>
-				<form action="./controllers/insertCategory.php" method="post">
-					<?php
-						if (isset($_GET['action'])) {
-							echo '<input name="id" type="hidden" value="'.$_GET['id'].'" />';
-							echo '<div><span class="wtip"><input name="category_name" placeholder="Category Name" value="'.$_GET['name'].'" required/></span></div><br/>';
-							echo '<div><span class="wtip"><input name="description" placeholder="Description" value="'.$_GET['description'].'" required/></span></div><br/>';
-							echo '<div><select name="parent_group" value="'.$_GET['parent_group'].'">';
-							echo "<option value=''>Select...</option>";
-							require_once './include/DBFunctions.php';
-							$db = new DBFunctions();
-							$data = $db->listCategories();
-							if($data != ""){
-								foreach ($data as $item) {
-									$parent_group = $_GET['parent_group'];
-									if($item[0] == $parent_group){
-										echo "<option value=".$item[0]." selected>".$item[1]."</option>";
-									} else {
-										echo "<option value=".$item[0].">".$item[1]."</option>";
-									}
-								}
-							}
-							echo '</select></div><br/>';
-							echo '<input class="btn-submit" name="add" type="submit" value="Add" disabled/>';
-							echo '<input class="btn-submit" name="edit" type="submit" value="Edit"/>';
-						} else {
-					?>
-						<div><span class="wtip"><input id="menu" class="medium" original-title="Category name" name="category_name" placeholder="Category Name" required/></span></div><br/>
-						<div><span class="wtip"><input id="menu" class="medium" original-title="Description" name="description" placeholder="Description" required/></span></div><br/>
-						<select name="parent_group">
-							<?php
-								require_once './include/DBFunctions.php';
-								$db = new DBFunctions();
-								$data = $db->listCategories();
-								echo "<option value=''></option>";
-								if($data != ""){
-									foreach ($data as $item) {
-										echo "<option value=".$item[0].">".$item[1]."</option>";
-									}
-								}
-							?>
-						</select><br/>
-						<input class="btn-submit" name="add" type="submit" value="Add"/>
-						<input class="btn-submit" name="edit" type="submit" value="Edit" disabled/>
-					<?php
-						}
-					?>
-				</form>
-			
+	
 </body>
 </html>

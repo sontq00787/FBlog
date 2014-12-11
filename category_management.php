@@ -78,11 +78,6 @@
 	<script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/zice.custom.js"></script>
-	<style type="text/css">
-		.table-row{
-			border: 1px solid #000;
-		}
-	</style>
 </head>
 <body class="dashborad">
 	<?php
@@ -161,8 +156,21 @@
                         <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
                     </ul>
 			</div>
-			<table class="table-row display static dataTable" id="static">
-				<thead>
+      <div class="clear"></div>
+      <div class="onecolumn">
+        <div class="header">
+          <span>
+          <span class="ico  gray random"></span>
+          Category Management</span>
+        </div>
+        <div class="clear"></div>
+        <div class="content">
+        <form>
+      <div class="tableName">
+        <h3>Category Table</h3>
+        <div class="clear"></div>
+			<table class="display data_table2 dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+        <thead>
 					<tr role="row">
 						<th>ID</th>
 						<th>Name</th>
@@ -170,8 +178,8 @@
 						<th>Parent Group</th>
 						<th>Action</th>
 					</tr>
-				</thead>
-				<tbody role="alert" aria-live="polite" aria-relevant="all">
+          </thead>
+          <tbody role="alert" aria-live="polite" aria-relevant="all">
 					<?php
 						require_once './include/DBFunctions.php';
 						$db = new DBFunctions();
@@ -191,8 +199,11 @@
 							}
 						}
 					?>
-				</tbody>
+          </tbody>
 			</table>
+    </div>
+    </form>
+  </div>
 		</div>
 	</div>
 </body>
