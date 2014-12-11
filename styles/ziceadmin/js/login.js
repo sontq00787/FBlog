@@ -6,7 +6,7 @@ $(document).ready(function () {
 				$('.userbox').animate({ opacity: 0 }, 200).hide();
 			 });		
 
-			  })	
+			  })
 			$(".on_off_checkbox").iphoneStyle();
 			$('.tip a ').tipsy({gravity: 'sw'});
 			$('.tip input').tipsy({ trigger: 'focus', gravity: 'w' });

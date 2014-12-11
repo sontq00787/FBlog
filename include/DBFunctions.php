@@ -62,6 +62,42 @@ class DBFunctions {
 		return $response;
 	}
 	
+	public function createUserByAdmin($name, $email, $password,$status, $display_name, $user_group) {
+		require_once 'PassHash.php';
+		$response = array ();
+	
+		// First check if user already existed in db
+		if (! $this->isUserExists ( $email )) {
+			// Generating password hash
+			$password_hash = PassHash::hash ( $password );
+				
+			// Generating API key
+			$activation_key = $this->generateActivationKey ();
+				
+			// insert query
+			$stmt = $this->conn->prepare ( "INSERT INTO users(user_name, user_email, user_pass, user_status, display_name, user_activation_key, user_group) values(?, ?, ?, ?, ?, ?, ?)" );
+			$stmt->bind_param ( "sssissi", $name, $email, $password_hash, $status, $display_name, $activation_key, $user_group );
+				
+			$result = $stmt->execute ();
+				
+			$stmt->close ();
+				
+			// Check for successful insertion
+			if ($result) {
+				// User successfully inserted
+				return USER_CREATED_SUCCESSFULLY;
+			} else {
+				// Failed to create user
+				return USER_CREATE_FAILED;
+			}
+		} else {
+			// User with same email already existed in the db
+			return EMAIL_ALREADY_EXISTED;
+		}
+	
+		return $response;
+	}
+	
 	/**
 	 * Checking user login
 	 *
@@ -247,6 +283,18 @@ class DBFunctions {
 		$result = $stmt->execute();
 		$stmt->close ();
 		return $result;
+	}
+	
+	/* ------------- `groups` table method ------------------ */
+	/**
+	 * Fetching all users
+	 */
+	public function getGroups() {
+		$stmt = $this->conn->prepare ( "SELECT * FROM groups" );
+		$stmt->execute ();
+		$groups = $stmt->get_result ();
+		$stmt->close ();
+		return $groups;
 	}
 }
 ?>

@@ -103,14 +103,13 @@ $('#admin_control').addClass('select');
 										<li><span class="tip"><a class="uibutton special"
 												onClick="ResetForm()" title="Reset  Form">Làm lại</a></span></li>
 									</ul>
-									<form id="create_user_form"
-										action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+									<form id="create_user_form" action="#" method="post">
 
 										<div class="section ">
 											<label> Tên của người dùng<small>Họ tên của người dùng</small></label>
 											<div>
 												<input type="text" class="validate[required] large"
-													name="display_name" id="f_required">
+													name="display_name" id="display_name">
 											</div>
 										</div>
 										<div class="section ">
@@ -118,7 +117,7 @@ $('#admin_control').addClass('select');
 											<div>
 												<input type="text"
 													class="validate[required,custom[email]]  large"
-													name="user_email" id="e_required">
+													name="user_email" id="user_email">
 											</div>
 										</div>
 										<div class="section">
@@ -147,17 +146,22 @@ $('#admin_control').addClass('select');
 										<div class="section">
 											<label>Nhóm </label>
 											<div>
-												<select class="large" name="user_group">
-													<option value="1">Mới đăng ký</option>
-													<option value="2">Kỳ cựu</option>
-													<option value="0">Chưa kích hoạt</option>
+												<select class="large" name="user_group" id="user_group">
+												<?php
+												$listgroups = $db->getGroups ();
+												if ($listgroups) {
+													foreach ( $listgroups as $group ) {
+														echo "<option value=" . $group ['id'] . ">" . $group ['name'] . "</option>";
+													}
+												}
+												?>	
 												</select>
 											</div>
 										</div>
 										<div class="section">
 											<label>Trạng thái người dùng </label>
 											<div>
-												<select class="large" name="user_status">
+												<select class="large" name="user_status" id="user_status">
 													<option value="1">Mới đăng ký</option>
 													<option value="2">Kỳ cựu</option>
 													<option value="0">Chưa kích hoạt</option>
@@ -166,20 +170,43 @@ $('#admin_control').addClass('select');
 										</div>
 										<div class="section last">
 											<div>
-												<a class="uibutton submit_form">Tạo mới</a>
+												<a class="uibutton submit_form" id="create_user">Tạo mới</a>
 											</div>
 										</div>
 									</form>
-									<?php
-									
-									if ($_POST ['username']) {
-										$username = $_POST['username'];
-										$display_name = $_POST['display_name'];
-										$user_email = $_POST['user_email'];
-										$password = $_POST['password'];
-										
-									}
-									?>
+									<script type="text/javascript">
+									$(function(){
+									    $("#create_user").click(function(){
+									    	var username = $("#username").val();
+											var password = $("#password").val();
+											var user_email = $("#user_email").val();
+											var display_name = $("#display_name").val();
+											var user_group = $("#user_group").val();
+											var user_status = $("#user_status").val();
+									        var dataString = 'action=newuser&username='+ username + '&password=' +password +'&user_email='
+									        					+ user_email + '&display_name='+ display_name + '&user_group='+ user_group
+									        					+'&user_status='+user_status;
+											if(username!= ""){
+										        $.ajax({
+										        	type: "POST",
+										        	url: "ajax.php",
+										        	data: dataString,
+										        	cache: true,
+										        	success: function(result){
+										            	if(result == 0){
+										            		showSuccess("Data lại nặng thêm 1 tí rồi :)",2000);
+										        		}else if(result == 1){
+										        			showError("Có lỗi khi insert vào db, éo biết lỗi gì :v",2000);
+											        	}else if(result == 2){
+											        		showError("Email này có người dùng cmnr",2000);
+												 		}else
+												 			showError("Lỗi éo xác định",2000);
+										        	}  
+										        	});
+											}
+									    });
+									});
+									</script>
 
 								</div>
 							</div>
