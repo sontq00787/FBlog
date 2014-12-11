@@ -35,4 +35,10 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newuser') {
 	$user_status = $_POST ['user_status'];
 	echo $db->createUserByAdmin ( $username, $user_email, $password, $user_status, $display_name, $user_group );
 }
+
+//do get user infomation
+if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'edituser') {
+	echo "Do Edit";
+}
+
 ?>

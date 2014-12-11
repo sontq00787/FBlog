@@ -38,15 +38,16 @@ $('#admin_control').addClass('select');
 
 					<div id="uploadTab">
 						<ul class="tabs">
-							<li><a href="#tab2" id="3"> Members</a></li>
+							<li><a href="#tab1" id="2"> Members</a></li>
 						</ul>
 						<div class="tab_container">
-							<div id="tab2" class="tab_content">
+							<div id="tab1" class="tab_content">
 								<div class="load_page">
 									<ul class="uibutton-group">
 										<li><span class="tip"><a class="uibutton icon add on_load"
-												name="#tab1" title="Click Add User">Thêm người dùng</a></span></li>
-										<li><a class="uibutton special DeleteAll">Xoá</a></li>
+												name="#tab1" title="Click to add user"
+												tabname="Thêm người dùng">Thêm người dùng</a></span></li>
+										<li><a class="uibutton special DeleteAll">Xóa</a></li>
 									</ul>
 									<form class="tableName toolbar">
 
@@ -63,8 +64,8 @@ $('#admin_control').addClass('select');
 														class="checkAll" /></th>
 													<th width="352" align="left">Tên người dùng</th>
 													<th width="174">Nhóm</th>
-													<th width="246">Ngày đăng ký</th>
-													<th width="199">Công cụ quản lý</th>
+													<th width="246">Ngày tham gia</th>
+													<th width="199">Công cụ quản lí</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -77,11 +78,11 @@ $('#admin_control').addClass('select');
 														echo '<td>' . $user ['user_name'] . '</td>';
 														echo '<td>' . $user ['user_group'] . '</td>';
 														echo '<td>' . $user ['user_registered'] . '</td>';
-														echo "<td><span class=\"tip\"> <a title=\"Edit\"> <img
+														echo "<td><span class=\"tip\"> <a id=\"" . $user ['id'] . "\" title=\"Edit\" class=\"Edit\"> <img
 																src=\"../styles/ziceadmin/images/icon/icon_edit.png\">
 														</a>
-													</span> <span class=\"tip\"> <a id=\"1\" class=\"Delete\"
-															name=\"Band ring\" title=\"Delete\"> <img
+													</span> <span class=\"tip\"> <a id=\"" . $user ['id'] . "\" class=\"Delete\"
+															name=\"" . $user ['user_name'] . "\" title=\"Delete\"> <img
 																src=\"../styles/ziceadmin/images/icon/icon_delete.png\">
 														</a>
 													</span></td>";
@@ -103,13 +104,14 @@ $('#admin_control').addClass('select');
 										<li><span class="tip"><a class="uibutton special"
 												onClick="ResetForm()" title="Reset  Form">Làm lại</a></span></li>
 									</ul>
-									<form id="create_user_form" action="#" method="post">
+									<form id="create_user_form" action="#">
 
 										<div class="section ">
-											<label> Tên của người dùng<small>Họ tên của người dùng</small></label>
+											<label> Tên người dùng<small>Họ tên của người dùng</small></label>
 											<div>
 												<input type="text" class="validate[required] large"
 													name="display_name" id="display_name">
+											
 											</div>
 										</div>
 										<div class="section ">
@@ -118,11 +120,12 @@ $('#admin_control').addClass('select');
 												<input type="text"
 													class="validate[required,custom[email]]  large"
 													name="user_email" id="user_email">
+											
 											</div>
 										</div>
 										<div class="section">
-											<label> Tài khoản đăng nhập <small>Thông tin tài khoản dùng
-													để đăng nhập</small></label>
+											<label> Tài khoản đăng nhập <small>Thông tin tài khoản đăng
+													nhập</small></label>
 											<div>
 												<input type="text" name="username" id="username"
 													class="validate[required,minSize[3],maxSize[20],] medium" /><label>Username</label>
@@ -170,11 +173,39 @@ $('#admin_control').addClass('select');
 										</div>
 										<div class="section last">
 											<div>
-												<a class="uibutton submit_form" id="create_user">Tạo mới</a>
+												<a class="uibutton" id="create_user">Tạo mới</a>
 											</div>
 										</div>
 									</form>
 									<script type="text/javascript">
+									$(function(){
+									    $(".Edit").click(function(){
+										    var userid = $(this).attr('id');
+// 									    	var username = $("#username").val();
+// 											var password = $("#password").val();
+// 											var user_email = $("#user_email").val();
+// 											var display_name = $("#display_name").val();
+// 											var user_group = $("#user_group").val();
+// 											var user_status = $("#user_status").val();
+									        var dataString = 'action=edituser&userid='+ userid;
+											if(userid!= ""){
+										        $.ajax({
+										        	type: "POST",
+										        	url: "ajax.php",
+										        	data: dataString,
+										        	cache: true,
+										        	success: function(result){
+										            	if(result){
+										            		showSuccess(result);
+												 		}else
+												 			showError("Không lấy được thông tin người dùng");
+										        	}  
+										        	});
+											}
+										$(".on_load").attr("tabname","Sửa thông tin người dùng");
+										$(".on_load").click();
+									    });
+									});
 									$(function(){
 									    $("#create_user").click(function(){
 									    	var username = $("#username").val();
@@ -194,9 +225,11 @@ $('#admin_control').addClass('select');
 										        	cache: true,
 										        	success: function(result){
 										            	if(result == 0){
-										            		showSuccess("Data lại nặng thêm 1 tí rồi :)",2000);
+										            		showSuccess("Data lại nặng thêm rồi :)",2000);
+										            		setTimeout("$(\"#create_user_form\").submit()",2000);
+// 										            		ResetForm();
 										        		}else if(result == 1){
-										        			showError("Có lỗi khi insert vào db, éo biết lỗi gì :v",2000);
+										        			showError("Có lỗi khi insert :v",2000);
 											        	}else if(result == 2){
 											        		showError("Email này có người dùng cmnr",2000);
 												 		}else
@@ -215,16 +248,17 @@ $('#admin_control').addClass('select');
 						</div>
 					</div>
 					<!--/END TAB/-->
-					<div class="clear" /></div>
+					<div class="clear" />
 				</div>
 			</div>
+		</div>
 
 
 
-			<div class="clear"></div>
+		<div class="clear"></div>
                     <?php include_once './template/footer.php';?>
                 </div>
-		<!--// End inner -->
+	<!--// End inner -->
 	</div>
 	<!--// End content -->
 </body>

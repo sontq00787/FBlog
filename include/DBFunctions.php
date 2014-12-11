@@ -287,7 +287,7 @@ class DBFunctions {
 	
 	/* ------------- `groups` table method ------------------ */
 	/**
-	 * Fetching all users
+	 * Fetching all groups
 	 */
 	public function getGroups() {
 		$stmt = $this->conn->prepare ( "SELECT * FROM groups" );

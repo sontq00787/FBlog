@@ -920,7 +920,7 @@ $(function() {
 		$('body').append('<div id="overlay"></div>');
 		$('#overlay').css('opacity',0.4).fadeIn(400);
 		var activeLoad = $(this).attr("name");		
-		var titleTabs = $(this).attr("title");		
+		var titleTabs = $(this).attr("tabname");		
 		$("ul.tabs li").hide();		
 				$('ul.tabs li').each(function(index) {
 						var activeTab = $('ul.tabs li:eq('+index+')').find("a").attr("href")			
