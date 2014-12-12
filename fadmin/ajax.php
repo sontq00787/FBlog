@@ -37,8 +37,9 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newuser') {
 }
 
 //do get user infomation
-if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'edituser') {
-	echo "Do Edit";
+if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'getuser') {
+	$userid = $_POST['userid'];
+	echo json_encode($db->getUserById($userid));
 }
 
 ?>

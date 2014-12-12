@@ -75,10 +75,11 @@ $('#admin_control').addClass('select');
 														echo "<tr>";
 														echo "<td width=\"35\"><input type=\"checkbox\" name=\"checkbox[]\"
 														class=\"chkbox\" id=\"check" . $user ['id'] . "\" /></td>";
+														// echo "<td></td>";
 														echo '<td>' . $user ['user_name'] . '</td>';
 														echo '<td>' . $user ['user_group'] . '</td>';
 														echo '<td>' . $user ['user_registered'] . '</td>';
-														echo "<td><span class=\"tip\"> <a id=\"" . $user ['id'] . "\" title=\"Edit\" class=\"Edit\"> <img
+														echo "<td><span class=\"tip\"> <a onclick=\"getUser(".$user['id'].")\" id=\"" . $user ['id'] . "\" title=\"Edit\" class=\"Edit\"> <img
 																src=\"../styles/ziceadmin/images/icon/icon_edit.png\">
 														</a>
 													</span> <span class=\"tip\"> <a id=\"" . $user ['id'] . "\" class=\"Delete\"
@@ -178,34 +179,61 @@ $('#admin_control').addClass('select');
 										</div>
 									</form>
 									<script type="text/javascript">
-									$(function(){
-									    $(".Edit").click(function(){
-										    var userid = $(this).attr('id');
-// 									    	var username = $("#username").val();
-// 											var password = $("#password").val();
-// 											var user_email = $("#user_email").val();
-// 											var display_name = $("#display_name").val();
-// 											var user_group = $("#user_group").val();
-// 											var user_status = $("#user_status").val();
-									        var dataString = 'action=edituser&userid='+ userid;
-											if(userid!= ""){
-										        $.ajax({
-										        	type: "POST",
-										        	url: "ajax.php",
-										        	data: dataString,
-										        	cache: true,
-										        	success: function(result){
-										            	if(result){
-										            		showSuccess(result);
-												 		}else
-												 			showError("Không lấy được thông tin người dùng");
-										        	}  
-										        	});
-											}
-										$(".on_load").attr("tabname","Sửa thông tin người dùng");
-										$(".on_load").click();
-									    });
-									});
+									function getUser(userid){
+										var dataString = 'action=getuser&userid='+ userid;
+										if(userid!= ""){
+									        $.ajax({
+									        	type: "POST",
+									        	url: "ajax.php",
+									        	data: dataString,
+									        	dataType: "json",
+									        	cache: true,
+									        	success: function(result){
+									            	if(result.user_name){
+									            		document.getElementById("username").value = result.user_name;
+//										            		document.getElementById("password").value = result.user_name;
+									            		document.getElementById("user_email").value = result.user_email;
+									            		document.getElementById("display_name").value = result.display_name;
+									            		document.getElementById("user_group").value = result.user_group;
+									            		document.getElementById("user_status").value = result.user_status;
+									            		$(".on_load").attr("tabname","Sửa thông tin người dùng");
+														$(".on_load").click();
+											 		}else
+											 			showError("Không lấy được thông tin người dùng");
+									        	}  
+									        	});
+										}
+									}
+// 									$(function(){
+// 									    $(".Edit").click(function(){
+									    	
+// 										    var userid = $(this).attr('id');
+// 									        var dataString = 'action=getuser&userid='+ userid;
+// 											if(userid!= ""){
+// 										        $.ajax({
+// 										        	type: "POST",
+// 										        	url: "ajax.php",
+// 										        	data: dataString,
+// 										        	dataType: "json",
+// 										        	cache: true,
+// 										        	success: function(result){
+// 										            	if(result.user_name){
+// 										            		document.getElementById("username").value = result.user_name;
+// // 										            		document.getElementById("password").value = result.user_name;
+// 										            		document.getElementById("user_email").value = result.user_email;
+// 										            		document.getElementById("display_name").value = result.display_name;
+// 										            		document.getElementById("user_group").value = result.user_group;
+// 										            		document.getElementById("user_status").value = result.user_status;
+// 										            		$(".on_load").attr("tabname","Sửa thông tin người dùng");
+// 															$(".on_load").click();
+// 												 		}else
+// 												 			showError("Không lấy được thông tin người dùng");
+// 										        	}  
+// 										        	});
+// 											}
+										
+// 									    });
+// 									});
 									$(function(){
 									    $("#create_user").click(function(){
 									    	var username = $("#username").val();

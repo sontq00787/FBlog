@@ -178,6 +178,34 @@ class DBFunctions {
 	}
 	
 	/**
+	 * Fetching user by userid
+	 *
+	 * @param String $userid
+	 *        	User id
+	 */
+	public function getUserById($userid) {
+		$stmt = $this->conn->prepare ( "SELECT id,user_name,user_email,user_registered,user_status,display_name,user_group FROM users WHERE id = ?" );
+		$stmt->bind_param ( "i", $userid );
+		if ($stmt->execute ()) {
+			// $user = $stmt->get_result()->fetch_assoc();
+			$stmt->bind_result ( $id, $user_name, $user_email, $user_registered, $user_status, $display_name, $user_group );
+			$stmt->fetch ();
+			$user = array ();
+			$user ["id"] = $id;
+			$user ["user_name"] = $user_name;
+			$user ["user_email"] = $user_email;
+			$user ["user_registered"] = $user_registered;
+			$user ["user_status"] = $user_status;
+			$user ["display_name"] = $display_name;
+			$user ["user_group"] = $user_group;
+			$stmt->close ();
+			return $user;
+		} else {
+			return NULL;
+		}
+	}
+	
+	/**
 	 * Checking for duplicate user by email address
 	 *
 	 * @param String $email
