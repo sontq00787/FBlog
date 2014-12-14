@@ -206,6 +206,20 @@ class DBFunctions {
 	}
 	
 	/**
+	 * function to delete an user
+	 * @param int $userid id of user need delete from db
+	 * @return boolean
+	 */
+	public function deleteAnUser($userid){
+		$stmt = $this->conn->prepare ( "DELETE FROM users WHERE id = ?" );
+		$stmt->bind_param ( "i", $userid );
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
+	}
+	
+	/**
 	 * Checking for duplicate user by email address
 	 *
 	 * @param String $email

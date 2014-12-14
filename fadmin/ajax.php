@@ -10,7 +10,7 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'login') {
 		$password = $_POST ['password'];
 		if ($db->checkLogin ( $email, $password )) {
 			$_SESSION ['username'] = $email;
-			echo 'Login success';
+			echo true;
 		}
 		// else
 		// echo 'Login fail';
@@ -18,15 +18,15 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'login') {
 }
 
 // do logout
-if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'logout') {
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'logout') {
 	session_start ();
 	unset ( $_SESSION ['username'] );
 	session_destroy ();
-	echo 'logout success';
+	echo true;
 }
 
 // do add new user
-if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newuser') {
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newuser') {
 	$username = $_POST ['username'];
 	$display_name = $_POST ['display_name'];
 	$user_email = $_POST ['user_email'];
@@ -37,9 +37,20 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newuser') {
 }
 
 //do get user infomation
-if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'getuser') {
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'getuser') {
 	$userid = $_POST['userid'];
 	echo json_encode($db->getUserById($userid));
+}
+
+//do delete an user by userid
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'deleteuser') {
+	$userid = $_POST['userid'];
+	echo $db->deleteAnUser($userid);
+}
+//do update user
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'updateuser') {
+	$userid = $_POST['userid'];
+// 	echo $db-> up
 }
 
 ?>

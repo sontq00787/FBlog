@@ -891,15 +891,15 @@ $(function() {
 	})
 
 
-	// Confirm Delete.
-	$(".Delete").live('click',function() { 
-		  var row=$(this).parents('tr');
-		  var dataSet=$(this).parents('form');
-		  var id = $(this).attr("id");
-		  var name = $(this).attr("name");
-		  var data ='id='+id;
-		  Delete(data,name,row,0,dataSet);
-	});
+//	// Confirm Delete.
+//	$(".Delete").live('click',function() { 
+//		  var row=$(this).parents('tr');
+//		  var dataSet=$(this).parents('form');
+//		  var id = $(this).attr("id");
+//		  var name = $(this).attr("name");
+//		  var data ='id='+id;
+//		  Delete(data,name,row,0,dataSet);
+//	});
 	$(".DeleteAll").live('click',function() {			
 		  var rel=$(this).attr('rel');	
 		  var row=$(this).parents('.tab_content').attr('id');	
