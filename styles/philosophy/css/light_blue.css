@@ -1,0 +1,351 @@
+@charset "utf-8";
+/* Philosophy HTML Template Color CSS Document */
+
+/* Headline
+------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+	color: #3399CC;
+}
+
+/* Date in Last News
+------------------------------------------ */
+.date {
+	color: #131313;
+}
+
+/* Links
+------------------------------------------ */
+a {
+	color: #3399CC;
+}
+.importantA {
+	background: #f3f3f3 url(../images/light-blue/importantA.png) right bottom no-repeat;
+}
+.importantA:hover {
+	color: #ffffff;
+	background: #3399CC url(../images/light-blue/importantA.png) right top no-repeat;
+}
+.paragraphA {
+	color: #666666;
+	background: #f3f3f3;
+}
+.paragraphA a {
+	color: #666666;
+	background: url(../images/light-blue/paragraphA_background.png) right top no-repeat;
+}
+.paragraphA a:hover {
+	color: #3399CC;
+}
+
+/* Form Elements
+------------------------------------------ */
+input, textarea {
+	color: #666666;
+	background: #ffffff;
+	border: 1px solid #e6e6e6;
+}
+input:focus, textarea:focus {
+	border: 1px solid #3399CC;
+}
+input.submit {
+	color: #f6f6f6;
+	background: #131313;
+}
+input.submit:hover {
+	color: #3399CC;
+	background: #ffffff;
+}
+input.submit:focus {
+	border: 1px solid #e6e6e6;
+}
+
+/* Blockquote
+------------------------------------------ */
+blockquote {
+	border-left: 5px solid #e6e6e6;
+}
+
+/* Inner Box
+------------------------------------------ */
+.innerBox {
+	border: 1px solid #e6e6e6;
+	background: #f3f3f3;
+	padding: 15px;
+}
+
+/* Tables
+------------------------------------------ */
+table {
+	border: 1px solid #e6e6e6;
+}
+th {
+	color: #3399CC;
+	background: #f3f3f3;
+}
+td {
+	border-top: 1px solid #e6e6e6;
+}
+tr:hover {
+	background: #f3f3f3;
+}
+
+/* Image
+------------------------- */
+.imgBorder {
+	border: 1px solid #e6e6e6;
+}
+.lightbox img:hover {
+	border: 1px solid #3399CC;
+}
+
+/* List
+------------------------- */
+.list li {
+	background: url(../images/light-blue/list.png) no-repeat;
+}
+.arrow li {
+	background: url(../images/light-blue/list_arrow.png) no-repeat;
+}
+.check li {
+	background: url(../images/light-blue/list_check.png) no-repeat;
+}
+
+/* Navigation
+------------------------- */
+.nav li a {
+	color: #666666;
+	background: url(../images/light-blue/navigation.png) 1px top no-repeat;
+	border-bottom: 1px solid #e6e6e6;
+}
+.nav li a:hover {
+	color: #3399CC;
+	border-bottom: 1px solid #3399CC;
+	background: #f3f3f3 url(../images/light-blue/navigation.png) 1px top no-repeat;
+}
+
+/* Pagination
+------------------------------------------ */
+.pagination {
+	border-top: 1px solid #e6e6e6;
+}
+.pagination li a {
+	color: #999999;
+	border: 1px solid #e6e6e6;
+}
+.pagination li a:hover {
+	color: #3399CC;
+	border: 1px solid #3399CC;
+}
+.pagination li a.current {
+	color: #ffffff;
+	background: #3399CC;
+	border: 1px solid #3399CC;
+}
+
+/* Body
+------------------------------------------ */
+body {
+	color: #666666;
+	background: #ffffff;	
+}
+
+/* Header
+------------------------------------------ */
+#headerBackground {
+	background: url(../images/light-blue/header_background.png);
+}
+#header {
+	color: #999999;
+}
+#logo {
+	background: url(../images/light-blue/logo_light.png) no-repeat;
+}
+#logo a {
+	background: url(../images/light-blue/logo.png) no-repeat;
+}
+.topCall {
+	background: url(../images/light-blue/telephone.png) left center no-repeat;
+	border-right: 1px solid #444444;
+}
+
+/* Search
+------------------------------------------ */
+.searchFieldset {
+	border: 1px solid #444444;
+}
+.searchInput {
+	color: #999999;
+	background: #1d1d1d;
+	border: none;
+}
+.searchInput:focus {
+	border: none;
+}
+.searchButtom {
+	background: #1d1d1d url(../images/light-blue/search.png) 4px 4px no-repeat;
+	border: none;
+}
+
+/* Main Navigation
+------------------------------------------ */
+#mainNav ul li a {
+	color: #f6f6f6;
+}
+#mainNav ul li a:hover { 
+	color: #3399CC;
+}
+#mainNav ul li a.current {
+	color: #3399CC;
+}
+#mainNav ul li ul li a { 
+	background: #1c1c1c; 
+	border-top: 1px solid #303030; 
+	border-bottom: 1px solid #0c0c0c; 
+}
+#mainNav ul li ul li a:hover {
+	background: #262626;
+}
+
+/* Intro
+------------------------------------------ */
+#introBackground {
+	border-top: 1px solid #363636;
+	background: url(../images/light-blue/intro_background.png);
+}
+.introContent {
+	color: #999999;
+}
+
+/* Main
+------------------------------------------ */
+#mainBackground {
+	border-bottom: 1px solid #131313;
+}
+
+/* Bottom
+------------------------------------------ */
+#bottomBackground {
+	border-top: 1px solid #464646;
+	background: #262626;
+}
+#bottom {
+	color: #999999;
+	background: url(../images/light-blue/bottom_light.png) no-repeat;
+}
+#bottom .imgBorder {
+	border: 1px solid #444444;
+}
+#bottom h1, #bottom h2, #bottom h3,
+#bottom h4, #bottom h5, #bottom h6 {
+	color: #f6f6f6;
+}
+
+/* Sub Bottom
+------------------------------------------ */
+#subBottom {
+	border-bottom: 1px solid #202020;
+}
+#subBottom .attr {
+	color: #636363;
+}
+#subBottom .comment {
+	background: url(../images/light-blue/comment.png) no-repeat;
+}
+#subBottom .category {
+	background: url(../images/light-blue/category.png) no-repeat;
+}
+#subBottom .date {
+	color: #f6f6f6;
+}
+#subBottom .nav li a {
+	color: #999999;
+	background: url(../images/light-blue/buttom_navigation.png) no-repeat;
+	border: none;
+}
+#subBottom .nav li a:hover {
+	color: #3399CC;
+}
+
+/* Footer
+------------------------------------------ */
+#footer {
+	border-top: 1px solid #333333;
+}
+
+/* Slider
+------------------------------------------ */
+#sliderBackground {
+	border-top: 1px solid #363636;
+	background: url(../images/light-blue/slider_background.png) repeat-x;
+}
+
+/* Portoflio
+------------------------------------------ */
+.folio h2 {
+	color: #ffffff;
+	background: url(../images/text_background.png);
+}
+.folio .lightbox {
+	background: url(../images/light-blue/folio_background.png) left top no-repeat;
+}
+.folio .lightbox:hover {
+	background: url(../images/light-blue/folio_background.png) left bottom no-repeat;
+}
+.folioLarge h2 {
+	color: #ffffff;
+	background: url(../images/text_background.png);
+}
+.folioLarge .lightbox {
+	background: url(../images/light-blue/folio_large_background.png) left top no-repeat;
+}
+.folioLarge .lightbox:hover {
+	background: url(../images/light-blue/folio_large_background.png) left bottom no-repeat;
+}
+
+/* Gallery
+------------------------------------------ */
+.gallery .lightbox {
+	background: url(../images/light-blue/gallery_background.png) left top no-repeat;
+}
+.gallery .lightbox:hover {
+	background: url(../images/light-blue/gallery_background.png) left bottom no-repeat;
+}
+.galleryLarge .imgDesc {
+	color: #ffffff;
+	background: url(../images/text_background.png);
+}
+
+/* Blog
+------------------------------------------ */
+.blog .attr {
+	color: #868686;
+	border-top: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+}
+.blog .attr .author {
+	background: url(../images/light-blue/author.png) no-repeat;
+}
+.blog .attr .category {
+	background: url(../images/light-blue/category.png) no-repeat;
+}
+.blog .attr .comment {
+	background: url(../images/light-blue/comment.png) no-repeat;
+}
+.blog .attr .tag {
+	background: url(../images/light-blue/tag.png) no-repeat;
+}
+
+/* Highlight Error Info
+------------------------------------------ */
+label.error {
+	color: red;
+}
+#response {
+	color: red;
+}
+
+/* Comments
+------------------------------------------ */
+.comments {
+	border: 1px solid #e6e6e6;
+}

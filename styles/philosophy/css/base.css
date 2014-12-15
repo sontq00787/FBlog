@@ -1,0 +1,19 @@
+/* Main Styles */
+@import url("styles.css");
+
+/* Color Styles, You can choose one of them and comment others */
+/* @import url("light_red.css"); */
+/* @import url("light_cafe.css"); */
+@import url("light_blue.css");
+/* @import url("light_black.css"); */ 
+/* @import url("light_orange.css"); */
+/* @import url("dark_blue.css"); */
+/* @import url("dark_cafe.css"); */
+/* @import url("dark_red.css"); */
+/* @import url("dark_orange.css"); */
+
+/* Lightbox Styles */
+@import url("prettyPhoto.css");
+
+/* Coin Slider Styles */
+@import url("coin-slider-styles.css");
