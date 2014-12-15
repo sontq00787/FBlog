@@ -1,6 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Philosophy - Blog Page</title>
 <link type="text/css" href="styles/philosophy/css/base.css" rel="stylesheet" />
+<link type="text/css" href="styles/philosophy/css/sontq/custom.css" rel="stylesheet" />
 <script type="text/javascript" src="styles/philosophy/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="styles/philosophy/js/jqueryslidemenu.js"></script>
 <script type="text/javascript" src="styles/philosophy/js/jquery.prettyPhoto.js"></script>

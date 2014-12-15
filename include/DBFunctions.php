@@ -396,5 +396,20 @@ class DBFunctions {
 		$stmt->close ();
 		return $num_affected_rows > 0;
 	}
+	
+	/* ------------- `posts` table method ------------------ */
+	/**
+	 * Fetching all groups with basic info
+	 */
+	public function getListPostBasicInfo() {
+		$stmt = $this->conn->prepare ( "SELECT p.id, p.post_author, p.post_content, p.post_date, p.post_title, p.post_category, 
+				u.user_name, c.name
+				FROM posts p,users u, categories c WHERE p.post_author = u.id AND p.post_category = c.id 
+				 ORDER BY post_date DESC" );
+		$stmt->execute ();
+		$posts = $stmt->get_result ();
+		$stmt->close ();
+		return $posts;
+	}
 }
 ?>
