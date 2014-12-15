@@ -12,7 +12,7 @@ class DBFunctions {
 		require_once dirname ( __FILE__ ) . '/DbConnect.php';
 		// opening db connection
 		$db = new DbConnect ();
-		$this->conn = $db->connect();
+		$this->conn = $db->connect ();
 	}
 	/* ------------- `users` table method ------------------ */
 	
@@ -61,27 +61,26 @@ class DBFunctions {
 		
 		return $response;
 	}
-	
-	public function createUserByAdmin($name, $email, $password,$status, $display_name, $user_group) {
+	public function createUserByAdmin($name, $email, $password, $status, $display_name, $user_group) {
 		require_once 'PassHash.php';
 		$response = array ();
-	
+		
 		// First check if user already existed in db
 		if (! $this->isUserExists ( $email )) {
 			// Generating password hash
 			$password_hash = PassHash::hash ( $password );
-				
+			
 			// Generating API key
 			$activation_key = $this->generateActivationKey ();
-				
+			
 			// insert query
 			$stmt = $this->conn->prepare ( "INSERT INTO users(user_name, user_email, user_pass, user_status, display_name, user_activation_key, user_group) values(?, ?, ?, ?, ?, ?, ?)" );
 			$stmt->bind_param ( "sssissi", $name, $email, $password_hash, $status, $display_name, $activation_key, $user_group );
-				
+			
 			$result = $stmt->execute ();
-				
+			
 			$stmt->close ();
-				
+			
 			// Check for successful insertion
 			if ($result) {
 				// User successfully inserted
@@ -94,8 +93,23 @@ class DBFunctions {
 			// User with same email already existed in the db
 			return EMAIL_ALREADY_EXISTED;
 		}
-	
+		
 		return $response;
+	}
+	
+	public function updateUser($userid, $user_name, $user_email, $password, $user_status, $display_name, $user_group) {
+		if ($password != "") {
+			$stmt = $this->conn->prepare ( "UPDATE users set user_name = ?, user_email = ?, user_pass = ?, user_status = ?, display_name = ?, user_group = ? WHERE id = ?" );
+			$stmt->bind_param ( "sssisii", $user_name, $user_email, $password, $user_status, $display_name, $user_group, $userid );
+		} else {
+			$stmt = $this->conn->prepare ( "UPDATE users set user_name = ?, user_email = ?, user_status = ?, display_name = ?, user_group = ? WHERE id = ?" );
+			$stmt->bind_param ( "ssisii", $user_name, $user_email, $user_status, $display_name, $user_group, $userid );
+		}
+		
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
 	}
 	
 	/**
@@ -144,7 +158,7 @@ class DBFunctions {
 	
 	/**
 	 * change password function
-	 * 
+	 *
 	 * @param String $user        	
 	 * @param String $old_pass        	
 	 * @param String $new_pass        	
@@ -207,10 +221,12 @@ class DBFunctions {
 	
 	/**
 	 * function to delete an user
-	 * @param int $userid id of user need delete from db
+	 * 
+	 * @param int $userid
+	 *        	id of user need delete from db
 	 * @return boolean
 	 */
-	public function deleteAnUser($userid){
+	public function deleteAnUser($userid) {
 		$stmt = $this->conn->prepare ( "DELETE FROM users WHERE id = ?" );
 		$stmt->bind_param ( "i", $userid );
 		$stmt->execute ();
@@ -260,69 +276,65 @@ class DBFunctions {
 	private function generateActivationKey() {
 		return md5 ( uniqid ( rand (), true ) );
 	}
-
+	
 	/**
-	*
-	*
-	**/
-	public function createCategory($name, $description, $parent_group){
-		if ($this->isCategoryExists($name)) {
-			# code...
-			$stmt = $this->conn->prepare ("insert into categories(name, description, parent_group) values(?,?,?)");
-			$stmt->bind_param("sss", $name, $description, $parent_group);
-			$result = $stmt->execute();
+	 */
+	public function createCategory($name, $description, $parent_group) {
+		if ($this->isCategoryExists ( $name )) {
+			// code...
+			$stmt = $this->conn->prepare ( "insert into categories(name, description, parent_group) values(?,?,?)" );
+			$stmt->bind_param ( "sss", $name, $description, $parent_group );
+			$result = $stmt->execute ();
 			$stmt->close ();
 			return $result;
 		} else {
 			echo "Category is existed";
 		}
 	}
-
+	
 	/**
-	* Check existed category
-	* @param $name
-	* @return boolean
-	**/
-	public function isCategoryExists($name){
-		$stmt = $this->conn->prepare ("select count(*) as count from categories where name = ?");
-		$stmt->bind_param("s", $name);
-		$stmt->execute();
-		$stmt->store_result();
+	 * Check existed category
+	 * 
+	 * @param
+	 *        	$name
+	 * @return boolean
+	 *
+	 */
+	public function isCategoryExists($name) {
+		$stmt = $this->conn->prepare ( "select count(*) as count from categories where name = ?" );
+		$stmt->bind_param ( "s", $name );
+		$stmt->execute ();
+		$stmt->store_result ();
 		$num_rows = $stmt->num_rows;
 		$stmt->close ();
 		return $num_rows > 0;
 	}
-
+	
 	/**
-	*
-	*
-	**/
-	public function listCategories(){
-		$stmt = $this->conn->query("select id, name from categories");
-		$results = $stmt->fetch_all();
+	 */
+	public function listCategories() {
+		$stmt = $this->conn->query ( "select id, name from categories" );
+		$results = $stmt->fetch_all ();
 		$stmt->close ();
 		return $results;
 	}
-
-	public function tableCategories(){
-		$stmt = $this->conn->query("select * from categories");
-		$results = $stmt->fetch_all();
+	public function tableCategories() {
+		$stmt = $this->conn->query ( "select * from categories" );
+		$results = $stmt->fetch_all ();
 		$stmt->close ();
 		return $results;
 	}
-
-	public function deleteCategory($id){
-		$stmt = $this->conn->prepare("delete from categories where id=?");
-		$stmt->bind_param("s", $id);
-		$results = $stmt->execute();
+	public function deleteCategory($id) {
+		$stmt = $this->conn->prepare ( "delete from categories where id=?" );
+		$stmt->bind_param ( "s", $id );
+		$results = $stmt->execute ();
 		$stmt->close ();
 		return $results;
 	}
-
 	public function editCategory($id, $name, $description, $parent_group) {
-		$stmt = $this->conn->prepare("update categories set name = ?, description = ?, parent_group = ? where id=?");
-		$stmt->bind_param("ssss", $name, $description, $parent_group, $id);
-		$result = $stmt->execute();
+		$stmt = $this->conn->prepare ( "update categories set name = ?, description = ?, parent_group = ? where id=?" );
+		$stmt->bind_param ( "ssss", $name, $description, $parent_group, $id );
+		$result = $stmt->execute ();
 		$stmt->close ();
 		return $result;
 	}
@@ -337,6 +349,52 @@ class DBFunctions {
 		$groups = $stmt->get_result ();
 		$stmt->close ();
 		return $groups;
+	}
+	
+	public function createGroup($name, $description) {
+		$stmt = $this->conn->prepare ( "INSERT INTO groups(name, description) values(?, ?)" );
+		$stmt->bind_param ( "ss", $name, $description);
+		$result = $stmt->execute ();
+	
+		if (false === $result) {
+			die ( 'execute() failed: ' . htmlspecialchars ( $stmt->error ) );
+		}
+		$stmt->close ();
+		return $result;
+	}
+	
+	public function getGroup($groupid) {
+		$stmt = $this->conn->prepare ( "SELECT id,name,description FROM groups WHERE id = ?" );
+		$stmt->bind_param ( "i", $groupid );
+		if ($stmt->execute ()) {
+			// $user = $stmt->get_result()->fetch_assoc();
+			$stmt->bind_result ( $id, $name, $description );
+			$stmt->fetch ();
+			$group = array ();
+			$group ["id"] = $id;
+			$group ["name"] = $name;
+			$group ["description"] = $description;
+			$stmt->close ();
+			return $group;
+		} else {
+			return NULL;
+		}
+	}
+	public function updateGroup($groupid, $name, $description) {
+		$stmt = $this->conn->prepare ( "UPDATE groups set name = ?, description = ? WHERE id = ?" );
+		$stmt->bind_param ( "ssi", $name, $description, $groupid );
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
+	}
+	public function deleteAGroup($groupid) {
+		$stmt = $this->conn->prepare ( "DELETE FROM groups WHERE id = ?" );
+		$stmt->bind_param ( "i", $groupid );
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
 	}
 }
 ?>

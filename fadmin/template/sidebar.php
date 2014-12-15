@@ -8,13 +8,14 @@
 					<li><a href="user.php">User Manage</a></li>
 					<li><a href="post.php">Post Manage</a></li>
 					<li><a href="category.php">Category Manage </a></li>
+					<li><a href="group.php">Group Manage </a></li>
 				</ul></li>
 			<li class="limenu"><a href="#"><span
 					class="ico gray  dimensions"></span><b>Personal pages</b></a>
 				<ul>
-					<li><a href="profile.html"> Profile setting </a></li>
-					<li><a href="conversation.html"> conversation</a></li>
-					<li><a href="imagesEditor.html"> Images Editor </a></li>
+					<li><a href="#"> Profile setting </a></li>
+					<li><a href="#"> conversation</a></li>
+					<li><a href="#"> Images Editor </a></li>
 				</ul></li>
 <!-- 			<li class="limenu"><a href="table.html"><span -->
 <!-- 					class="ico gray shadow  spreadsheet"></span><b>Tables</b> </a></li> -->

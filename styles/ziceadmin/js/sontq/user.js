@@ -32,15 +32,25 @@ function getUser(userid) {
 
 $("#update_user").live('click', function() {
 	var userid = $("#selected_user").html();
-	var dataString = "action=updateuser&userid="+userid;
+	var username = $("#username").val();
+	var password = $("#password").val();
+	var user_email = $("#user_email").val();
+	var display_name = $("#display_name").val();
+	var user_group = $("#user_group").val();
+	var user_status = $("#user_status").val();
+	var dataString = 'action=updateuser&username=' + username
+			+ '&password=' + password + '&user_email='
+			+ user_email + '&display_name=' + display_name
+			+ '&user_group=' + user_group + '&user_status='
+			+ user_status+'&userid='+userid;
 	if (userid != "") {
 		$.ajax({
 			type : "POST",
 			url : "ajax.php",
 			data : dataString,
-			dataType : "json",
 			cache : true,
 			success : function(result) {
+//				showError(result);
 				if (result == 1) {
 					showSuccess("Cập nhật thành công");
 				} else
@@ -62,6 +72,21 @@ $(function() {
 	});
 });
 
+$(".DeleteAll").live('click',function() {			
+	  var rel=$(this).attr('rel');	
+	  var row=$(this).parents('.tab_content').attr('id');	
+	  var row=row+' .load_page ';
+	  if(!rel) { 
+		  var rel=0;
+		  var row=$('#load_data').attr('id');	 
+	  }  
+	  var dataSet=$('form:eq('+rel+')');					   
+	  var	data=$('form:eq('+rel+')').serialize();
+	  var name = 'những người đang chọn';
+//	  ConfirmDelete(data,name,row,2,dataSet);
+	  //chức năng chưa hỗ trợ.
+	  showError("Chức năng này chưa hỗ trợ, chờ rảnh hứng lên mới code nhé :3.");
+});
 function ConfirmDelete(data, name, row, type, dataSet) {
 	var loadpage = dataSet.hdata(0);
 	var url = dataSet.hdata(1);
@@ -84,7 +109,6 @@ function ConfirmDelete(data, name, row, type, dataSet) {
 								type : "POST",
 								url : "ajax.php",
 								data : dataString,
-								dataType : "json",
 								cache : true,
 								success : function(result) {
 									if (result == 1) {

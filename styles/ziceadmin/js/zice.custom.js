@@ -132,7 +132,8 @@ $(document).ready(function(){
 	// form validationEngine
 	$('form#validation').validationEngine();		
 	$('form#validation_demo').validationEngine();
-	$('form#create_user_form').validationEngine();	
+	$('form#create_user_form').validationEngine();
+	$('form#create_group_form').validationEngine();
 	
 	// input filter
 	$('.numericonly input').autotab_magic().autotab_filter('numeric');
@@ -900,19 +901,19 @@ $(function() {
 //		  var data ='id='+id;
 //		  Delete(data,name,row,0,dataSet);
 //	});
-	$(".DeleteAll").live('click',function() {			
-		  var rel=$(this).attr('rel');	
-		  var row=$(this).parents('.tab_content').attr('id');	
-		  var row=row+' .load_page ';
-		  if(!rel) { 
-			  var rel=0;
-			  var row=$('#load_data').attr('id');	 
-		  }  
-		  var dataSet=$('form:eq('+rel+')');					   
-		  var	data=$('form:eq('+rel+')').serialize();
-		  var name = 'All File Select';
-		 Delete(data,name,row,2,dataSet);
-	});
+//	$(".DeleteAll").live('click',function() {			
+//		  var rel=$(this).attr('rel');	
+//		  var row=$(this).parents('.tab_content').attr('id');	
+//		  var row=row+' .load_page ';
+//		  if(!rel) { 
+//			  var rel=0;
+//			  var row=$('#load_data').attr('id');	 
+//		  }  
+//		  var dataSet=$('form:eq('+rel+')');					   
+//		  var	data=$('form:eq('+rel+')').serialize();
+//		  var name = 'All File Select';
+//		 Delete(data,name,row,2,dataSet);
+//	});
 	
 	
 	// Overlay form

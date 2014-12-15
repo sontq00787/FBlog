@@ -50,7 +50,35 @@ else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'deleteuser') {
 //do update user
 else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'updateuser') {
 	$userid = $_POST['userid'];
-// 	echo $db-> up
+	$username = $_POST ['username'];
+	$display_name = $_POST ['display_name'];
+	$user_email = $_POST ['user_email'];
+	$password = $_POST ['password'];
+	$user_group = $_POST ['user_group'];
+	$user_status = $_POST ['user_status'];
+	echo $db -> updateUser($userid, $username, $user_email, $password, $user_status, $display_name, $user_group);
 }
-
+//do add group
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newgroup') {
+	$name = $_POST ['name'];
+	$description = $_POST ['description'];
+	echo $db -> createGroup($name, $description);
+}
+//do get group information
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'getgroup') {
+	$groupid = $_POST ['groupid'];
+	echo json_encode($db -> getGroup($groupid));
+}
+//do update group
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'updategroup') {
+	$groupid = $_POST ['groupid'];
+	$name = $_POST ['name'];
+	$description = $_POST ['description'];
+	echo $db -> updateGroup($groupid, $name, $description);
+}
+//do delete a group
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'deletegroup') {
+	$groupid = $_POST ['groupid'];
+	echo $db -> deleteAGroup($groupid);
+}
 ?>
