@@ -146,12 +146,15 @@ $(function() {
 										cache : true,
 										success : function(result) {
 											if (result == 1) {
+												setTimeout("location.reload()",2000);
 												showSuccess(
 														"Data lại nặng thêm rồi :)",
 														2000);
-												setTimeout(
-														"$(\"#create_group_form\").submit()",
-														2000);
+												
+//												setTimeout("$(\"#tab1\").load(\"group.php #tab1\")",2000);
+//												setTimeout(
+//														"$(\"#create_group_form\").submit()",
+//														2000);
 												// ResetForm();
 											} else
 												showError("Lỗi éo xác định",2000);

@@ -46,7 +46,7 @@ $('#admin_control').addClass('select');
 									<ul class="uibutton-group">
 										<li><span class="tip"><a class="uibutton icon add on_load"
 												name="#tab1" title="Click to add user"
-												tabname="Thêm người dùng">Thêm nhóm người dùng</a></span></li>
+												tabname="Thêm nhóm người dùng">Thêm nhóm người dùng</a></span></li>
 										<li><a class="uibutton special DeleteAll">Xóa</a></li>
 									</ul>
 									<form class="tableName toolbar">

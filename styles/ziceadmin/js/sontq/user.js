@@ -196,12 +196,13 @@ $(function() {
 										cache : true,
 										success : function(result) {
 											if (result == 0) {
+												setTimeout("location.reload()",2000);
 												showSuccess(
 														"Data lại nặng thêm rồi :)",
 														2000);
-												setTimeout(
-														"$(\"#create_user_form\").submit()",
-														2000);
+//												setTimeout(
+//														"$(\"#create_user_form\").submit()",
+//														2000);
 												// ResetForm();
 											} else if (result == 1) {
 												showError(
