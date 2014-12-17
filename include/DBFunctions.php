@@ -96,7 +96,6 @@ class DBFunctions {
 		
 		return $response;
 	}
-	
 	public function updateUser($userid, $user_name, $user_email, $password, $user_status, $display_name, $user_group) {
 		if ($password != "") {
 			$stmt = $this->conn->prepare ( "UPDATE users set user_name = ?, user_email = ?, user_pass = ?, user_status = ?, display_name = ?, user_group = ? WHERE id = ?" );
@@ -221,7 +220,7 @@ class DBFunctions {
 	
 	/**
 	 * function to delete an user
-	 * 
+	 *
 	 * @param int $userid
 	 *        	id of user need delete from db
 	 * @return boolean
@@ -294,7 +293,7 @@ class DBFunctions {
 	
 	/**
 	 * Check existed category
-	 * 
+	 *
 	 * @param
 	 *        	$name
 	 * @return boolean
@@ -350,24 +349,21 @@ class DBFunctions {
 		$stmt->close ();
 		return $groups;
 	}
-	
 	public function createGroup($name, $description) {
 		$stmt = $this->conn->prepare ( "INSERT INTO groups(name, description) values(?, ?)" );
-		$stmt->bind_param ( "ss", $name, $description);
+		$stmt->bind_param ( "ss", $name, $description );
 		$result = $stmt->execute ();
-	
+		
 		if (false === $result) {
 			die ( 'execute() failed: ' . htmlspecialchars ( $stmt->error ) );
 		}
 		$stmt->close ();
 		return $result;
 	}
-	
 	public function getGroup($groupid) {
 		$stmt = $this->conn->prepare ( "SELECT id,name,description FROM groups WHERE id = ?" );
 		$stmt->bind_param ( "i", $groupid );
 		if ($stmt->execute ()) {
-			// $user = $stmt->get_result()->fetch_assoc();
 			$stmt->bind_result ( $id, $name, $description );
 			$stmt->fetch ();
 			$group = array ();
@@ -410,6 +406,30 @@ class DBFunctions {
 		$posts = $stmt->get_result ();
 		$stmt->close ();
 		return $posts;
+	}
+	
+	public function getPostById($postid) {
+		$stmt = $this->conn->prepare ( "SELECT p.id, p.post_author, p.post_content, p.post_date, p.post_title, p.post_category, 
+				u.user_name, c.name
+				FROM posts p,users u, categories c WHERE p.post_author = u.id AND p.post_category = c.id AND p.id = ?" );
+		$stmt->bind_param ( "i", $postid );
+		if ($stmt->execute ()) {
+			$stmt->bind_result ( $id, $post_author, $post_content, $post_date, $post_title, $post_category, $user_name, $category_name );
+			$stmt->fetch ();
+			$post = array ();
+			$post ["id"] = $id;
+			$post ["post_author"] = $post_author;
+			$post ["post_content"] = $post_content;
+			$post ["post_date"] = $post_date;
+			$post ["post_title"] = $post_title;
+			$post ["post_category"] = $post_category;
+			$post ["user_name"] = $user_name;
+			$post ["name"] = $category_name;
+			$stmt->close ();
+			return $post;
+		} else {
+			return NULL;
+		}
 	}
 }
 ?>
