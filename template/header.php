@@ -1,6 +1,6 @@
 <div id="headerBackground">
         <div id="header" class="clearfix">
-            <div id="logo"> <a href="index.html"></a>
+            <div id="logo"> <a href="blog.php"></a>
             	<br class="clear" />
                 <p class="logoDesc">The Slogan of Your Company - Victory</p>
             </div>
