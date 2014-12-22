@@ -134,7 +134,7 @@ $(document).ready(function(){
 	$('form#validation_demo').validationEngine();
 	$('form#create_user_form').validationEngine();
 	$('form#create_group_form').validationEngine();
-	
+	$('form#create_post_form').validationEngine();
 	// input filter
 	$('.numericonly input').autotab_magic().autotab_filter('numeric');
 	$('.textonly input').autotab_magic().autotab_filter('text');

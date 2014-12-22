@@ -4,6 +4,10 @@
 <?php include_once 'template/head.php';?>
 </head>
 <body>
+	<?php
+		require_once 'include/DBFunctions.php';
+		$db = new DBFunctions();
+	?>
 	<div id="wrapper">
     <?php include_once 'template/header.php';?>
     <!-- header background end -->
@@ -33,6 +37,4 @@
 		});
 	</script>
 </body>
-
-<!----------------------------------------- Ripped by Alija [CST] www.codescriptz.org ----------------------------->
 </html>

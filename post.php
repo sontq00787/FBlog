@@ -58,7 +58,7 @@
 					?>
 					</div>
 					<!-- blog post end -->
-					<!-- ?php include_once 'template/comment_box.php';?-->
+					<?php include_once 'template/comment_box.php';?>
 				</div>
 				<!-- blog main content end -->
             <?php include_once 'template/sidebar.php';?>

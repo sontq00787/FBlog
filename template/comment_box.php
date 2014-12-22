@@ -1,52 +1,15 @@
 <div class="box">
-	<h3>3 Comments</h3>
+	<div class="custom_title">1 bình luận</div>
 	<div class="comments clearfix">
 		<div class="clearfix">
 			<img src="styles/philosophy/images/avatar.jpg" alt="" class="imgBorder imgLeft" />
 			<p>
-				<a href="#">John Doe Says:</a><br /> on April 3, 2010
+				<a href="#">SonTQ đã chém gió:</a><br /> ngày April 3, 2014
 			</p>
 		</div>
-		<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-			conse ctetur, adipisci velit, sed quia non numquam eius modi tempora
-			incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut
-			enim ad minima veniam, quis nostrum exercitat ionem ullam corporis
-			suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</p>
+		<p>Đây là comment mẫu.</p>
 		<p class="clearMB reply">
-			<a href="#">Reply &raquo;</a>
-		</p>
-		<br class="clear" />
-	</div>
-	<!-- response end -->
-	<div class="comments clearfix">
-		<div class="clearfix">
-			<img src="styles/philosophy/images/avatar.jpg" alt="" class="imgBorder imgLeft" />
-			<p>
-				<a href="#">John Doe Says:</a><br /> on April 2, 2010
-			</p>
-		</div>
-		<p>Ut enim ad minima veniam, quis nostrum exercitat ionem ullam
-			corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-			consequatur?</p>
-		<p class="clearMB reply">
-			<a href="#">Reply &raquo;</a>
-		</p>
-		<br class="clear" />
-	</div>
-	<!-- response end -->
-	<div class="comments clearfix">
-		<div class="clearfix">
-			<img src="styles/philosophy/images/avatar.jpg" alt="" class="imgBorder imgLeft" />
-			<p>
-				<a href="#">John Doe Says:</a><br /> on April 1, 2010
-			</p>
-		</div>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-			ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-			aliquip ex ea commodo consequat.</p>
-		<p class="clearMB reply">
-			<a href="#">Reply &raquo;</a>
+			<a href="#">Trả lời &raquo;</a>
 		</p>
 		<br class="clear" />
 	</div>
@@ -54,7 +17,13 @@
 </div>
 <!-- all comments end -->
 <div class="box">
-	<h3>Leave A Reply</h3>
+	<div class="custom_title">Để lại bình luận</div>
+	<?php 
+		$comment_disabled = true;
+		if($comment_disabled){
+			echo "<p>Hệ thống bình luận đã khoá</p>";
+		}else{
+	?>
 	<form action="#" method="post" id="commentForm">
 		<fieldset class="commentFieldset">
 			<ul>
@@ -83,5 +52,8 @@
 			</ul>
 		</fieldset>
 	</form>
+	<?php 
+		}
+	?>
 </div>
 <!-- leave a reply end -->

@@ -21,6 +21,7 @@ if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'login') {
 else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'logout') {
 	session_start ();
 	unset ( $_SESSION ['username'] );
+	unset ( $_SESSION ['user_id'] );
 	session_destroy ();
 	echo true;
 }
@@ -81,4 +82,17 @@ else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'deletegroup') {
 	$groupid = $_POST ['groupid'];
 	echo $db -> deleteAGroup($groupid);
 }
+
+//do add post
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newpost') {
+	$post_title = $_POST ['post_title'];
+	$post_content = $_POST ['post_content'];
+	$post_status = $_POST ['post_status'];
+	$post_category = $_POST ['post_category'];
+	$post_password = $_POST ['post_password'];
+	session_start ();
+	$post_author = $_SESSION['user_id'];
+	echo $db -> createPost($post_title, $post_author, $post_content, $post_status, $post_category, $post_password);
+}
+
 ?>

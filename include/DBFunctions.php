@@ -120,15 +120,15 @@ class DBFunctions {
 	 *        	User login password
 	 * @return boolean User login status success/fail
 	 */
-	public function checkLogin($email, $password) {
+	public function checkLogin($emailoruser, $password) {
 		require_once 'PassHash.php';
 		// fetching user by user_name or email
-		$stmt = $this->conn->prepare ( "SELECT user_pass FROM users WHERE user_name = ? OR user_email = ?" );
-		$stmt->bind_param ( "ss", $email, $email );
+		$stmt = $this->conn->prepare ( "SELECT user_pass,id FROM users WHERE user_name = ? OR user_email = ?" );
+		$stmt->bind_param ( "ss", $emailoruser, $emailoruser );
 		
 		$stmt->execute ();
 		
-		$stmt->bind_result ( $password_hash );
+		$stmt->bind_result ( $password_hash, $user_id );
 		
 		$stmt->store_result ();
 		
@@ -142,6 +142,7 @@ class DBFunctions {
 			
 			if (PassHash::check_password ( $password_hash, $password )) {
 				// User password is correct
+				$_SESSION['user_id'] = $user_id;
 				return TRUE;
 			} else {
 				// user password is incorrect
@@ -407,7 +408,6 @@ class DBFunctions {
 		$stmt->close ();
 		return $posts;
 	}
-	
 	public function getPostById($postid) {
 		$stmt = $this->conn->prepare ( "SELECT p.id, p.post_author, p.post_content, p.post_date, p.post_title, p.post_category, 
 				u.user_name, c.name
@@ -430,6 +430,22 @@ class DBFunctions {
 		} else {
 			return NULL;
 		}
+	}
+	public function createPost($post_title, $post_author, $post_content, $post_status, $post_category, $post_password) {
+		if ($post_password != "") {
+			$stmt = $this->conn->prepare ( "INSERT INTO posts(post_author, post_title, post_content, post_status, post_password, post_category) values(?, ?, ?, ?, ?, ?)" );
+			$stmt->bind_param ( "issssi", $post_author, $post_title, $post_content, $post_status, $post_password, $post_category );
+		} else {
+			$stmt = $this->conn->prepare ( "INSERT INTO posts(post_author, post_title, post_content, post_status, post_category) values( ?, ?, ?, ?, ?)" );
+			$stmt->bind_param ( "isssi", $post_author, $post_title, $post_content, $post_status, $post_category );
+		}
+		$result = $stmt->execute ();
+		
+		if (false === $result) {
+			die ( 'execute() failed: ' . htmlspecialchars ( $stmt->error ) );
+		}
+		$stmt->close ();
+		return $result;
 	}
 }
 ?>
