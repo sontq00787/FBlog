@@ -12,11 +12,20 @@ if (isset ( $_POST ['post_title'] )) {
 	$post_status = $_POST ['post_status'];
 	$post_category = $_POST ['post_category'];
 	$post_password = $_POST ['post_password'];
-	if ($db->createPost ( $post_title, $post_author, $post_content, $post_status, $post_category, $post_password )) {
-		$_SESSION ["doinsert"] = true;
-		// echo "<script>$( document ).ready(function() {showSuccess(\"Done\");});</script>";//this line not work in this poisition
+	if ($_POST ['selected_post'] == '') {
+		if ($db->createPost ( $post_title, $post_author, $post_content, $post_status, $post_category, $post_password )) {
+			$_SESSION ["doinsert"] = true;
+			// echo "<script>$( document ).ready(function() {showSuccess(\"Done\");});</script>";//this line not work in this poisition
+		} else {
+			$_SESSION ["doinsert"] = false;
+		}
 	} else {
-		$_SESSION ["doinsert"] = false;
+		$postid = $_POST ['selected_post'];
+		if ($db->updatePost ( $postid, $post_title, $post_content, $post_status, $post_category, $post_password )) {
+			$_SESSION ["doupdate"] = true;
+		} else {
+			$_SESSION ["doupdate"] = false;
+		}
 	}
 	$page = 'post.php';
 	header ( 'Location: ' . $page, true, 303 );
@@ -123,7 +132,7 @@ $('#admin_control').addClass('select');
 									<ul class="uibutton-group">
 										<li><span class="tip"><a class="uibutton icon prev on_prev "
 												id="on_prev_pro" name="#tab2"
-												onClick="jQuery('#create_post_form').validationEngine('hideAll')"
+												onClick="jQuery('#create_post_form').validationEngine('hideAll');$('#selected_post').html('')"
 												title="Go Back">Trang quản lí bài viết</a></span></li>
 										<li><span class="tip"><a class="uibutton special"
 												onClick="ResetForm()" title="Reset  Form">Làm lại</a></span></li>
@@ -148,19 +157,15 @@ $('#admin_control').addClass('select');
 										<div class="section">
 											<label>Trạng thái bài viết</label>
 											<div>
-												<div>
-													<input type="radio" name="post_status" id="radio-1"
-														value="publish" class="ck" checked="checked" /> <label
-														for="radio-1">Publish</label>
-												</div>
-												<div>
-													<input type="radio" name="post_status" id="radio-2"
-														value="closed" class="ck" /> <label for="radio-2">Closed</label>
-												</div>
-												<div>
-													<input type="radio" name="post_status" id="radio-3"
-														value="draft" class="ck" /> <label for="radio-3">Draft</label>
-												</div>
+
+												<input type="radio" name="post_status" id="radio-1"
+													value="publish" class="ck" checked="checked" /> <label
+													for="radio-1">Publish</label> <input type="radio"
+													name="post_status" id="radio-2" value="closed" class="ck" />
+												<label for="radio-2">Closed</label> <input type="radio"
+													name="post_status" id="radio-3" value="draft" class="ck" />
+												<label for="radio-3">Draft</label>
+
 											</div>
 										</div>
 										<div class="section">
@@ -188,13 +193,15 @@ $('#admin_control').addClass('select');
 											</div>
 										</div>
 										<div class="section last">
-											<div id="selected_post" style="display: none;"></div>
+											<!-- <div id="selected_post" style="display: inline;"></div> -->
+											<input type="hidden" name="selected_post" id="selected_post" />
 											<div id="create_post_div">
-												<a class="uibutton" id="create_post">Tạo mới</a> <input
-													type="submit" class="uibutton" value="Tạo mới" />
+												<!-- 												<a class="uibutton" id="create_post">Tạo mới</a>  -->
+												<input type="submit" class="uibutton" value="Tạo mới" />
 											</div>
 											<div id="update_post_div" style="display: none;">
-												<a class="uibutton" id="update_post">Cập nhật</a>
+												<!-- 												<a class="uibutton" id="update_post">Cập nhật</a> -->
+												<input type="submit" class="uibutton" value="Cập nhật" />
 											</div>
 										</div>
 									</form>
@@ -207,6 +214,14 @@ $('#admin_control').addClass('select');
 												echo "<script>showError(\"Lỗi khi đăng bài.\");</script>";
 											}
 											unset ( $_SESSION ['doinsert'] );
+										}
+										if (isset ( $_SESSION ['doupdate'] )) {
+											if ($_SESSION ['doupdate']) {
+												echo "<script>showSuccess(\"Sửa bài viết thành công.\");</script>";
+											} else {
+												echo "<script>showError(\"Lỗi khi sửa bài viết.\");</script>";
+											}
+											unset ( $_SESSION ['doupdate'] );
 										}
 										?>
 									<script type="text/javascript"

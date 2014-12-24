@@ -1,7 +1,8 @@
 function getPost(postid) {
 	var dataString = 'action=getpost&postid=' + postid;
 	$("#create_post_div").hide();
-	$("#selected_post").html(postid);
+	$("#selected_post").val('' + postid);
+	// $("#selected_post").html(postid);
 	if (postid != "") {
 		$
 				.ajax({
@@ -13,8 +14,13 @@ function getPost(postid) {
 					success : function(result) {
 						if (result) {
 							document.getElementById("post_title").value = result.post_title;
-							document.getElementById("post_content").value = result.post_content;
-							document.getElementById("post_status").value = result.post_status;
+							$("#editor").val(result.post_content);
+							// $(".post_status").attr("checked",true);
+							// alert($(":checkbox[name='post_status']:checked").val());
+							// $(":checkbox[name='post_status'][value='closed']").attr('checked',
+							// true);
+							// document.getElementById("post_status").value =
+							// result.post_status;
 							document.getElementById("post_category").value = result.post_category;
 							$(".on_load").attr("tabname", "Sửa bài viết");
 							$(".on_load").click();
@@ -25,31 +31,6 @@ function getPost(postid) {
 				});
 	}
 }
-
-$("#update_post").live(
-		'click',
-		function() {
-			var groupid = $("#selected_group").html();
-			var name = $("#group_name").val();
-			var description = $("#group_description").val();
-			var dataString = 'action=updategroup&name=' + name
-					+ '&description=' + description + '&groupid=' + groupid;
-			if (groupid != "") {
-				$.ajax({
-					type : "POST",
-					url : "ajax.php",
-					data : dataString,
-					cache : true,
-					success : function(result) {
-						if (result == 1) {
-							showSuccess("Cập nhật thành công");
-						} else
-							showError("Cập nhật không thành công.");
-					}
-				});
-			}
-		});
-
 // Confirm user delete
 $(function() {
 	$(".Delete").live('click', function() {
@@ -85,7 +66,7 @@ function ConfirmDelete(data, name, row, type, dataSet) {
 	$
 			.confirm({
 				'title' : 'Thông báo xác nhận',
-				'message' : " <strong>Thí chủ chắc chắn muốn xoá nhóm </strong><br /><font color=red>' "
+				'message' : " <strong>Thí chủ chắc chắn muốn xoá bài viết </strong><br /><font color=red>' "
 						+ name + " ' </font> <strong>khỏi DB chứ?</strong>",
 				'buttons' : {
 					'Chắc luôn' : {
@@ -94,7 +75,7 @@ function ConfirmDelete(data, name, row, type, dataSet) {
 							loading('Checking');
 							$('#preloader').html('Đang xóa...');
 							// do delete user
-							var dataString = 'action=deletegroup&group' + data;
+							var dataString = 'action=deletepost&post' + data;
 							$.ajax({
 								type : "POST",
 								url : "ajax.php",
@@ -144,7 +125,7 @@ $(function() {
 						+ '&post_content=' + post_content + '&post_status='
 						+ post_status + '&post_category=' + post_category
 						+ '&post_password=' + post_password;
-//				alert(post_content);
+				// alert(post_content);
 				if (post_title != "") {
 					$.ajax({
 						type : "POST",
@@ -156,8 +137,8 @@ $(function() {
 								setTimeout("location.reload()", 2000);
 								showSuccess("Data lại nặng thêm rồi :)", 2000);
 							} else
-//								showError("Lỗi éo xác định", 2000);
-							showError(result);
+								// showError("Lỗi éo xác định", 2000);
+								showError(result);
 						}
 					});
 				}

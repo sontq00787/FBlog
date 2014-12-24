@@ -94,5 +94,15 @@ else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'newpost') {
 	$post_author = $_SESSION['user_id'];
 	echo $db -> createPost($post_title, $post_author, $post_content, $post_status, $post_category, $post_password);
 }
+//do get post
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'getpost') {
+	$postid = $_POST ['postid'];
+	echo json_encode($db -> getPostById($postid));
+}
 
+//do delete a post
+else if (isset ( $_POST ['action'] ) && $_POST ['action'] == 'deletepost') {
+	$postid = $_POST ['postid'];
+	echo $db -> deletePost($postid);
+}
 ?>

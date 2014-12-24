@@ -447,5 +447,30 @@ class DBFunctions {
 		$stmt->close ();
 		return $result;
 	}
+	
+	public function updatePost($postid, $post_title, $post_content, $post_status, $post_category, $post_password) {
+		if ($post_password != "") {
+			$stmt = $this->conn->prepare ( "UPDATE posts set post_title = ?, post_content = ?, post_status = ?, post_password = ?, post_category = ? WHERE id = ?" );
+			$stmt->bind_param ( "ssssii", $post_title, $post_content, $post_status, $post_password, $post_category, $postid );
+		} else {
+			$stmt = $this->conn->prepare ( "UPDATE posts set post_title = ?, post_content = ?, post_status = ?, post_category = ? WHERE id = ?" );
+			$stmt->bind_param ( "sssii", $post_title, $post_content, $post_status, $post_category, $postid );
+		}
+	
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
+	}
+	
+	public function deletePost($postid) {
+		$stmt = $this->conn->prepare ( "DELETE FROM posts WHERE id = ?" );
+		$stmt->bind_param ( "i", $postid );
+		$stmt->execute ();
+		$num_affected_rows = $stmt->affected_rows;
+		$stmt->close ();
+		return $num_affected_rows > 0;
+	}
+	
 }
 ?>
