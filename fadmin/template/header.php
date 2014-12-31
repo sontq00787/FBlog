@@ -14,7 +14,7 @@ if (! isset ( $_SESSION ['username'] )) {
 				alt="Profile Setting">
 		</div>
 		<div class="logout" title="Disconnect">
-			<b>Logout</b> <img src="../styles/ziceadmin/images/connect.png"
+			<b>Đăng xuất</b> <img src="../styles/ziceadmin/images/connect.png"
 				name="connect" class="disconnect" alt="disconnect">
 		</div>
 	</div>

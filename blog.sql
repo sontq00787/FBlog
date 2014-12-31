@@ -56,3 +56,11 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `posts` ADD FOREIGN KEY (`post_author`) REFERENCES `fblog`.`users`(`id`)
 ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Dumping default data
+INSERT INTO `groups`(`name`,`description`) VALUES ('Member','Default group');
+INSERT INTO `categories` (`name`, `description`, `parent_group`) VALUES
+('Uncategory', 'default category', 0);
+INSERT INTO `users` (`user_name`, `user_email`, `user_pass`, `user_registered`, `user_status`, `display_name`, `user_activation_key`, `user_group`) VALUES
+('sontq', 'sontq00787@gmail.com', '$2a$10$95e34201381a624bf0a51Owdf7W6ogoWYCehhyKzLqAC/AmNX3at.', '2014-12-08 08:57:24', 1, 'Newbie', '7eaa530e6ac5b5d1788b482b5949d14a', 1);
+

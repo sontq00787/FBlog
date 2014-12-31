@@ -17,7 +17,7 @@
 		<div id="mainBackground">
 			<div id="main" class="clearfix">
 				<div id="primaryContent">
-            <?php include_once 'template/blog_post_paging.php';?>
+            		<?php include_once 'template/blog_post_paging.php';?>
 				</div>
 				<!-- blog main content end -->
             <?php include_once 'template/sidebar.php';?>
