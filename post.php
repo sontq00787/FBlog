@@ -22,19 +22,22 @@
 						$post = $db->getPostById ( $postid );
 						if ($post != null) {
 							?>
+							<script type="text/javascript">
+								document.title = "<?=$post['post_title'];?>";
+							</script>
 						<div class="post_title">
 							<a href="#"><?php echo $post['post_title']?></a>
 						</div>
 						<div class="attr clearfix">
 							<p class="author">
-								Posted by <a href="#"><?php echo $post['user_name']?></a> on <?php echo $post['post_date']?>&nbsp; |
+								Đăng bởi <a href="#"><?php echo $post['user_name']?></a> lúc <?php echo $post['post_date']?>&nbsp; |
 								&nbsp;
 							</p>
 							<p class="category">
-								Posted in <a href="#"><?php echo $post['name']?></a>
+								Đăng trong <a href="#"><?php echo $post['name']?></a>
 							</p>
 							<p class="comment">
-								<a href="#">0 Comments</a>
+								<a href="#">0 bình luận</a>
 							</p>
 						</div>
 						<!-- attribute end -->

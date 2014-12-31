@@ -60,10 +60,10 @@ if ($total > 0) {
 			<a href="#">0 bình luận</a>
 		</p>
 	</div>
-	<p>
-		<img src="styles/philosophy/images/blog/blog_01.jpg" alt=""
-			class="imgBorder" />
-	</p>
+<!-- 	<p> -->
+<!-- 		<img src="styles/philosophy/images/blog/blog_01.jpg" alt="" -->
+<!-- 			class="imgBorder" /> -->
+<!-- 	</p> -->
 	<p><?php echo $func ->splitStr($post['post_content'],500);?></p>
 	<div class="attr clearfix">
 		<p class="tag">

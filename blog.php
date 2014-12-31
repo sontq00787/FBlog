@@ -1,12 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+<?php $title='Trang chủ';?>
 <?php include_once 'template/head.php';?>
 </head>
 <body>
 	<?php
-		require_once 'include/DBFunctions.php';
-		$db = new DBFunctions();
+	require_once 'include/DBFunctions.php';
+	$db = new DBFunctions ();
 	?>
 	<div id="wrapper">
     <?php include_once 'template/header.php';?>

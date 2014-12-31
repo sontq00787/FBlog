@@ -75,7 +75,7 @@ html {
 <!--Login div-->
 <div class="clear"></div>
 <div id="versionBar" >
-  <div class="copyright" > &copy; Copyright 2014  All Rights Reserved <span class="tip"><a  href="#" title="FBlog Admin" >SYS Viet Nam</a> </span> </div>
+  <div class="copyright" > &copy; Copyright 2015  All Rights Reserved <span class="tip"><a  href="#" title="FBlog Admin" >SYS Viet Nam</a> </span> </div>
   <!-- // copyright-->
 </div>
 <!-- Link JScript-->
